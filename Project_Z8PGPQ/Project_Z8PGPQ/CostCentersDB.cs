@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,39 @@ namespace Project_Z8PGPQ
                 cc.ORGCODE_STR = element.GetAttribute("ORGCODE");
                 cc.GEOCODE = element.GetAttribute("GEOCODE");
                 costCenters.Add(cc);
+            }
+        }
+
+        public void ToCSV(String FileName)
+        {
+            using (StreamWriter sw = new StreamWriter(FileName, false, Encoding.UTF8))
+            {
+                sw.Write("CTR");
+                sw.Write(";");
+                sw.Write("VFROM");
+                sw.Write(";");
+                sw.Write("VTO");
+                sw.Write(";");
+                sw.Write("TYPE");
+                sw.Write(";");
+                sw.Write("PROFCTR");
+                sw.Write(";");
+                sw.WriteLine("ORGCODE");
+
+                foreach (CostCenter cc in costCenters)
+                {
+                    sw.Write(cc.CTR);
+                    sw.Write(";");
+                    sw.Write(cc.VFROM.Year.ToString() + "/" + cc.VFROM.Month.ToString() + "/" + cc.VFROM.Day.ToString());
+                    sw.Write(";");
+                    sw.Write(cc.VTO.Year.ToString() + "/" + cc.VTO.Month.ToString() + "/" + cc.VTO.Day.ToString());
+                    sw.Write(";");
+                    sw.Write(cc.TYPE.ToString());
+                    sw.Write(";");
+                    sw.Write(cc.PROFCTR);
+                    sw.Write(";");
+                    sw.WriteLine(cc.ORGCODE.ToString());
+                }
             }
         }
     }
