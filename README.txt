@@ -1,4 +1,3 @@
-# IRF_Project
 IRF BEADANDÓ
 
 Kapott tételek: CBAB
@@ -34,3 +33,5 @@ A változtatások után kiíratom CSV-be az adatokat az XML sémájára: CTR, VF
 
 Programtervezési minta használata: 
 Építő programtervezési mintát alkalmazok a projektemben, ennek bővebb leírása a PATTERN.txt fájlban található.
+
+

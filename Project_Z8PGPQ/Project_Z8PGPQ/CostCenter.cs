@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +15,9 @@ namespace Project_Z8PGPQ
         public String TYPE { get; set; }
         public String PROFCTR { get; set; }
         public OrgCodes ORGCODE;
-        public virtual String ORGCODE_STR { get; set; }
+        public virtual String ORGCODE_O { get; set; }
         public virtual String GEOCODE { get; set; }
-
-        public abstract void WriteCSVLine(String FileName);
+        public abstract void WriteCSVLine(StreamWriter sw);
 
         //ellenőrizni azt attribútumokat
 

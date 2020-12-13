@@ -25,11 +25,21 @@ namespace Project_Z8PGPQ
             foreach (XmlElement element in xml.DocumentElement)
             {
                 String type = element.GetAttribute("TYPE");
-                
+
                 CostCenter cc;
 
-                if (type == "Headcount") cc = new CostCenterHC();
-                else if (type == "Nonheadcount") cc = new CostCenterNH();
+                if (type == "Headcount")
+                {
+                    cc = new CostCenterHC();
+                    cc.ORGCODE = (OrgCodes)int.Parse(element.GetAttribute("ORGCODE"));
+                }
+                else if (type == "Nonheadcount")
+                {
+                    string test = element.GetAttribute("GEOCODE");
+                    cc = new CostCenterNH();
+
+                    cc.GEOCODE = element.GetAttribute("GEOCODE");
+                }
                 else continue; //kihagy egy iterációt
 
                 cc.CTR = element.GetAttribute("CTR");
@@ -37,12 +47,9 @@ namespace Project_Z8PGPQ
                 cc.VTO = DateTime.Parse(element.GetAttribute("VTO"));
                 cc.TYPE = type;
                 cc.PROFCTR = element.GetAttribute("PROFCTR");
-                cc.ORGCODE_STR = element.GetAttribute("ORGCODE");
-                cc.GEOCODE = element.GetAttribute("GEOCODE");
                 costCenters.Add(cc);
             }
         }
-        //WriteCSVLine(FileName);
         public void ToCSV(String FileName)
         {
             using (StreamWriter sw = new StreamWriter(FileName, false, Encoding.UTF8))
@@ -57,21 +64,13 @@ namespace Project_Z8PGPQ
                 sw.Write(";");
                 sw.Write("PROFCTR");
                 sw.Write(";");
-                sw.WriteLine("ORGCODE");
+                sw.Write("ORGCODE");
+                sw.Write(";");
+                sw.WriteLine("GEOCODE");
 
                 foreach (CostCenter cc in costCenters)
                 {
-                    sw.Write(cc.CTR);
-                    sw.Write(";");
-                    sw.Write(cc.VFROM.Year.ToString() + "/" + cc.VFROM.Month.ToString() + "/" + cc.VFROM.Day.ToString());
-                    sw.Write(";");
-                    sw.Write(cc.VTO.Year.ToString() + "/" + cc.VTO.Month.ToString() + "/" + cc.VTO.Day.ToString());
-                    sw.Write(";");
-                    sw.Write(cc.TYPE.ToString());
-                    sw.Write(";");
-                    sw.Write(cc.PROFCTR);
-                    sw.Write(";");
-                    sw.WriteLine(cc.ORGCODE.ToString());
+                    cc.WriteCSVLine(sw);
                 }
             }
         }
