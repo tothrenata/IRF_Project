@@ -8,7 +8,7 @@ namespace Project_Z8PGPQ
 {
     public class CostCenterHC: CostCenter
     {
-        public override string ORGCODE_STR
+        public override String ORGCODE_STR
         {
             get
             {
@@ -21,6 +21,19 @@ namespace Project_Z8PGPQ
             {
                 ORGCODE = (OrgCodes)int.Parse(value);
             }
+        }
+
+        public override String GEOCODE
+        {
+            get 
+            { 
+                return GEOCODE; 
+            }
+            set 
+            { 
+                GEOCODE = ""; 
+            }
+
         }
 
         public override void WriteCSVLine(String FileName)

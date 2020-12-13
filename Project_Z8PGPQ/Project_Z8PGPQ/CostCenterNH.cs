@@ -8,19 +8,27 @@ namespace Project_Z8PGPQ
 {
     public class CostCenterNH: CostCenter
     {
-        public override string ORGCODE_STR
+        public override String ORGCODE_STR
         {
-            get
-            {
-                if (ORGCODE == OrgCodes.FI) return "FI";
-                if (ORGCODE == OrgCodes.BI) return "BI";
-                if (ORGCODE == OrgCodes.MA) return "MA";
-                return "invalid";
+            get 
+            { 
+                return "";
             }
-            set
-            {
-                ORGCODE = (OrgCodes)int.Parse(value);
+            set 
+            { 
             }
+        }
+        public override String GEOCODE 
+        {
+            get 
+            { 
+                return GEOCODE; 
+            }
+            set 
+            { 
+                GEOCODE=value; 
+            } 
+        
         }
 
         public override void WriteCSVLine(String FileName)

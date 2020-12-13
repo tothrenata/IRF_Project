@@ -14,8 +14,8 @@ namespace Project_Z8PGPQ
         public String TYPE { get; set; }
         public String PROFCTR { get; set; }
         public OrgCodes ORGCODE;
-        public virtual string ORGCODE_STR { get; set; }
-        public String GEOCODE { get; set; }
+        public virtual String ORGCODE_STR { get; set; }
+        public virtual String GEOCODE { get; set; }
 
         public abstract void WriteCSVLine(String FileName);
 
