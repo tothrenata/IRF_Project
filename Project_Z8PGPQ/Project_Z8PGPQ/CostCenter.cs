@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_Z8PGPQ
 {
-    class CostCenter
+    public abstract class CostCenter
     {
         public String CTR { get; set; }
         public DateTime VFROM { get; set; }
@@ -14,20 +14,12 @@ namespace Project_Z8PGPQ
         public String TYPE { get; set; }
         public String PROFCTR { get; set; }
         public OrgCodes ORGCODE;
-        public string ORGCODE_STR
-        {
-            get
-            {
-                if (ORGCODE == OrgCodes.FI) return "FI";
-                if (ORGCODE == OrgCodes.BI) return "BI";
-                if (ORGCODE == OrgCodes.MA) return "MA";
-                return "invalid";
-            }
-            set
-            {
-                ORGCODE = (OrgCodes)int.Parse(value);
-            }
-        }
+        public virtual string ORGCODE_STR { get; set; }
         public String GEOCODE { get; set; }
+
+        public abstract void WriteCSVLine(String FileName);
+
+        //ellenőrizni azt attribútumokat
+
     }
 }

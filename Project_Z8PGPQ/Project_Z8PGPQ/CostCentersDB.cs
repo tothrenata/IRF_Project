@@ -24,19 +24,25 @@ namespace Project_Z8PGPQ
 
             foreach (XmlElement element in xml.DocumentElement)
             {
-                CostCenter cc = new CostCenter();
+                String type = element.GetAttribute("TYPE");
+                
+                CostCenter cc;
+
+                if (type == "Headcount") cc = new CostCenterHC();
+                else if (type == "Nonheadcount") cc = new CostCenterNH();
+                else continue; //kihagy egy iterációt
 
                 cc.CTR = element.GetAttribute("CTR");
                 cc.VFROM = DateTime.Parse(element.GetAttribute("VFROM"));
                 cc.VTO = DateTime.Parse(element.GetAttribute("VTO"));
-                cc.TYPE = element.GetAttribute("TYPE");
+                cc.TYPE = type;
                 cc.PROFCTR = element.GetAttribute("PROFCTR");
                 cc.ORGCODE_STR = element.GetAttribute("ORGCODE");
                 cc.GEOCODE = element.GetAttribute("GEOCODE");
                 costCenters.Add(cc);
             }
         }
-
+        //WriteCSVLine(FileName);
         public void ToCSV(String FileName)
         {
             using (StreamWriter sw = new StreamWriter(FileName, false, Encoding.UTF8))
