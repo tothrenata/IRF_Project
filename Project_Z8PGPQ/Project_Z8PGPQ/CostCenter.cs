@@ -9,6 +9,7 @@ namespace Project_Z8PGPQ
 {
     public abstract class CostCenter
     {
+        public int ID { get; set; }
         public String CTR { get; set; }
         public DateTime VFROM { get; set; }
         public DateTime VTO { get; set; }
@@ -18,8 +19,5 @@ namespace Project_Z8PGPQ
         public virtual String ORGCODE_O { get; set; }
         public virtual String GEOCODE { get; set; }
         public abstract void WriteCSVLine(StreamWriter sw);
-
-        //ellenőrizni azt attribútumokat
-
     }
 }

@@ -19,10 +19,10 @@ namespace Project_Z8PGPQ
 
             costCentersDB = new CostCentersDB();
 
-            LoadXML();
+            LoadData();
         }
 
-        private void LoadXML()
+        private void LoadData()
         {
             dataGridView1.DataSource = costCentersDB.costCenters;
         }
@@ -34,6 +34,24 @@ namespace Project_Z8PGPQ
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
             costCentersDB.ToCSV(sfd.FileName);
+        }
+
+        private void btnCheck_Click(object sender, EventArgs e)
+        {
+            costCentersDB.WrongElements();
+            if (costCentersDB.wrongcostCenters.Count != 0)
+                dataGridView2.DataSource = costCentersDB.wrongcostCenters;
+            else
+                dataGridView2.DataSource = null;
+            LoadData();
+            Refresh();
+        }
+
+        private void btnCorrect_Click(object sender, EventArgs e)
+        {
+            costCentersDB.RefreshCostCenters();
+            LoadData();
+            Refresh();
         }
     }
 }

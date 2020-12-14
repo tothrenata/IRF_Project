@@ -12,6 +12,8 @@ namespace Project_Z8PGPQ
     {
         public List<CostCenter> costCenters = new List<CostCenter>();
 
+        public List<CostCenter> wrongcostCenters = new List<CostCenter>();
+
         public CostCentersDB()
         {
             ReadXML();
@@ -21,6 +23,8 @@ namespace Project_Z8PGPQ
         {
             var xml = new XmlDocument();
             xml.Load("XML files/CostCenters.xml");
+
+            int ID = 1;
 
             foreach (XmlElement element in xml.DocumentElement)
             {
@@ -41,13 +45,15 @@ namespace Project_Z8PGPQ
                     cc.GEOCODE = element.GetAttribute("GEOCODE");
                 }
                 else continue; //kihagy egy iterációt
-
+                cc.ID = ID;
                 cc.CTR = element.GetAttribute("CTR");
                 cc.VFROM = DateTime.Parse(element.GetAttribute("VFROM"));
                 cc.VTO = DateTime.Parse(element.GetAttribute("VTO"));
                 cc.TYPE = type;
                 cc.PROFCTR = element.GetAttribute("PROFCTR");
                 costCenters.Add(cc);
+
+                ID++;
             }
         }
         public void ToCSV(String FileName)
@@ -71,6 +77,32 @@ namespace Project_Z8PGPQ
                 foreach (CostCenter cc in costCenters)
                 {
                     cc.WriteCSVLine(sw);
+                }
+            }
+        }
+
+        public void WrongElements()
+        {
+            wrongcostCenters.Clear();
+            foreach (var item in costCenters)
+            {
+                if (item.CTR.Length != 8) wrongcostCenters.Add(item);
+                if (item.VTO != DateTime.Parse("9999/12/31")) wrongcostCenters.Add(item);
+                if (item.TYPE != "Nonheadcount" && item.TYPE != "Headcount") wrongcostCenters.Add(item);
+                if (item.PROFCTR.Length !=5) wrongcostCenters.Add(item);
+            }   
+        }
+
+        public void RefreshCostCenters()
+        {
+            foreach (var wrongcostCenter in wrongcostCenters)
+            {
+                for (int i = 0; i < costCenters.Count; i++)
+                {
+                    if (costCenters[i].ID == wrongcostCenter.ID)
+                    {
+                        costCenters[i] = wrongcostCenter;
+                    }
                 }
             }
         }
