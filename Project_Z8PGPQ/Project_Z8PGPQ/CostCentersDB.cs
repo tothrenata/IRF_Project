@@ -44,7 +44,7 @@ namespace Project_Z8PGPQ
 
                     cc.GEOCODE = element.GetAttribute("GEOCODE");
                 }
-                else continue; //kihagy egy iterációt
+                else continue;
                 cc.ID = ID;
                 cc.CTR = element.GetAttribute("CTR");
                 cc.VFROM = DateTime.Parse(element.GetAttribute("VFROM"));

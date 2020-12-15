@@ -5,7 +5,7 @@ Osztályok: CostCenterDB, CostCenter, CostCenterHC, CostCenterNH
 CostCentersDB: 
 Ez az osztály tartalmazza az összes CostCenter-t. 
 A ReadXML() végigiterál az XML fájl elemein. Mindegyiknél megvizsgálja, hogy HC vagy NH a CostCenter, ez alapján példányosítja a CostCenter-t, majd beállítja az attribútumait.
-A ToCSV() fv-ben végigiterál a CostCenter-eken és mindegyiknek meghívja a WriteCSVLine() fv-ét, azért hogy a HC és NH CostCenter-ek a saját formátumainak megfelelően írodjanak ki.
+A ToCSV() fv-ben végigiterál a CostCenter-eken és mindegyiknek meghívja a WriteCSVLine() fv-ét, azért hogy a HC és NH CostCenter-ek a saját formátumainak megfelelően íródjanak ki.
 
 CostCenter: abstract ősosztály
 Ez az osztály tartalmazza azokat a Property-ket és fv-eket, amiket a CostCenterHC és CostCenterNH megörököl/felüldefiniál.
@@ -13,13 +13,14 @@ Ez az osztály tartalmazza azokat a Property-ket és fv-eket, amiket a CostCente
 CostCenterHC: a CostCenter ősosztályból származtatjuk
 HeadCount CostCenter esetében az ORGCODE-ot kötelező megadni.
 Megvizsgálja, hogy megfelel-e az ORGCODE értéke az OrgCodes enumerációban megadott értékek valamelyikének.
-Az ORGCODE-t az eredeti numerikus értéket String-ként írja ki. (ORGCODE_STR)
+Az ORGCODE-t az eredeti numerikus értéket String-ként írja ki. (ORGCODE_STR-->ORGCODE_O)
+WriteCSVLine() fv felülírása: A GEOCODE-ot üresen írja ki a CSV-be, mert Headcount Cost Center esetében nem kell kitölteni ezt a mezőt.
 
 CostCenterNH: a CostCenter ősosztályból származtatjuk
 NonHeadcount CostCenter esetében a GEOCODE-ot kötelező megadni.
-Az ORGCODE-ot üresen hagyja, mert Nonheadcount esetében nem szükséges a mező kitöltése, a GEOCODE-ot pedig beállítja a settere.
+WriteCSVLine() fv felülírása: Az ORGCODE-ot üresen írja ki CSV-be, mert Nonheadcount esetében nem szükséges a mező kitöltése.
 
 Minta használatának magyarázata:
 A közös alaptulajdonságú, de eltérő viselkedésú CostCenter-eket szétbontjuk CostCenterHC-re és CostCenterNH-ra.
 Ezeket a közös ősosztállyal reprezentálva foglaljuk listába, amit a CostCentersDB-ben tárolunk.
-A listán végigiterálva a különböző CostCenter-eket különböző formátumban írhatjuk ki a CSV fájlba.  
+A listán végigiterálva a különböző CostCenter-eket különböző formátumban íratjuk ki a CSV fájlba.  

@@ -20,9 +20,6 @@ namespace Project_Z8PGPQ
             costCentersDB = new CostCentersDB();
 
             LoadData();
-
-           
-
         }
 
         private void LoadData()
@@ -42,6 +39,7 @@ namespace Project_Z8PGPQ
         private void btnCheck_Click(object sender, EventArgs e)
         {
             costCentersDB.WrongElements();
+
             if (costCentersDB.wrongcostCenters.Count != 0)
             {
                 dataGridView2.DataSource = null;
